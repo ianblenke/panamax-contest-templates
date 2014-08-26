@@ -46,17 +46,17 @@ images:
   category: Frontend Tier
   type: Default
   expose:
-  - '5000'
+  - '8980'
   ports:
   - host_port: '8083'
-    container_port: '5000'
+    container_port: '8980'
     proto: TCP
   links:
   - service: ianblenke_opennms
     alias: web1
   environment:
   - variable: PORT
-    value: 5000
+    value: 8980
 - name: ianblenke_opennms
   source: ianblenke/opennms:latest
   category: Application Tier
