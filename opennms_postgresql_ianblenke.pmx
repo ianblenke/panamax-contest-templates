@@ -52,12 +52,12 @@ images:
     container_port: '5000'
     proto: TCP
   links:
-  - service: opennms
+  - service: ianblenke_opennms
     alias: web1
   environment:
   - variable: PORT
     value: 5000
-- name: opennms
+- name: ianblenke_opennms
   source: ianblenke/opennms:latest
   category: Application Tier
   type: Tomcat
