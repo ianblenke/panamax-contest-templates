@@ -1,7 +1,7 @@
 ---
 name: opennms_postgresql_ianblenke
 description: An OpenNMS application tier backended by a linked PostgreSQL database
-keywords: opennms tomcat java postgresql haproxy
+keywords: opennms tomcat java postgresql
 type: Default
 documentation: |
   Application Name: OpenNMS, a SNMP capable web administered Network Management Engine with a PostgresSQL relational backend
@@ -14,8 +14,6 @@ documentation: |
 
   You may wish to change the PASS variable used by the postgresql container to something other than `verysecretpassword`
 
-  The haproxy frontend tier was really mostly added to show how SSL proxying might be accomplished.
-
   The opennms container is acting as both the tomcat web server as well as the network discovery and data polling collector. These roles really would belong in separate tiers,
   but the web interface is little more than an administrative interface for the underlying network monitoring engine.
 
@@ -27,7 +25,7 @@ documentation: |
 
   Port-Forwarding:
 
-  The external access to this template is through the ports exposed via the haproxy node in the Load Balancing tier. By default, port 8083 is exposed. You may wish to change this to suit your needs.
+  The external access to this template is through the ports exposed via the ianblenke_opennms node in the Application Balancing tier. By default, port 8980 is exposed.
 
   For Example: If using Virtual Box, use the following command in your local machine's terminal window to create the port forwarding rule:
 
@@ -41,22 +39,6 @@ documentation: |
 
   Additionally, the [ianblenke/opennms](https://registry.hub.docker.com/builds/github/ianblenke/opennms/) docker hub automatic build repository will show newer builds as they occur.
 images:
-- name: opennms_haproxy
-  source: tutum/haproxy:latest
-  category: Frontend Tier
-  type: Default
-  expose:
-  - '8980'
-  ports:
-  - host_port: '8083'
-    container_port: '8980'
-    proto: TCP
-  links:
-  - service: ianblenke_opennms
-    alias: web1
-  environment:
-  - variable: PORT
-    value: 8980
 - name: ianblenke_opennms
   source: ianblenke/opennms:latest
   category: Application Tier
